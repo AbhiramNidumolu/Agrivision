@@ -1,0 +1,367 @@
+/* src/App.css - full content to paste */
+
+body {
+  background-color: #f9fafb;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  color: #1f2937;
+}
+
+/* headings */
+h1, h2 {
+  color: #2e7d32; /* dark green */
+  margin: 0;
+}
+
+/* buttons */
+button, .download-btn, .btn {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  text-align:center;
+}
+
+button:hover, .download-btn:hover, .btn:hover {
+  background-color: #1b5e20;
+}
+
+/* small danger button */
+.btn-danger {
+  background-color: #c62828;
+}
+.btn-danger:hover {
+  background-color: #8e1f1f;
+}
+
+/* inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"],
+textarea {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* global container for forms */
+.container {
+  max-width: 420px;
+  margin: 20px auto;
+  padding: 28px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0px 6px 18px rgba(16,24,40,0.06);
+  text-align: left;
+}
+
+/* small card used for image tiles */
+.card {
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.06);
+}
+
+/* global page wrapper (centers content and limits width) */
+.page-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Signup layout: illustration left, form right */
+.signup-layout {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 100px);
+}
+
+/* left illustration */
+.left-illustration img {
+  width: 320px;        /* desktop size */
+  max-width: 40vw;
+  height: auto;
+  display: block;
+}
+
+/* form container inside signup */
+.form-container {
+  width: 420px;
+}
+
+/* small spacing helper for stacked form fields */
+.form-stack > * + * {
+  margin-top: 10px;
+}
+
+/* dashboard header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+/* per-category section */
+.category-section {
+  margin-top: 20px;
+  padding: 14px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #eef2f7;
+  box-shadow: 0px 4px 12px rgba(16,24,40,0.04);
+}
+
+/* category header */
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+/* images grid */
+.images-grid {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* image card */
+.image-card {
+  width: 160px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  text-align: center;
+  border: 1px solid #e6eef0;
+}
+.image-card img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+}
+
+/* download button style (placed under thumbnail) */
+.image-card a.download-btn {
+  display: block;
+  padding: 8px 0;
+  background: #2e7d32;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* small muted text */
+.muted {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-top: 8px;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .signup-layout {
+    flex-direction: column;
+    padding: 20px;
+  }
+  .left-illustration img {
+    width: 60%;
+  }
+  .page-wrapper {
+    padding: 10px;
+  }
+  .container {
+    margin: 10px;
+    width: auto;
+    max-width: 640px;
+  }
+}
+/* Signup Page Layout */
+.signup-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+  padding: 20px;
+}
+
+.signup-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-image img {
+  max-width: 90%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.signup-form {
+  flex: 1;
+}
+/* Dashboard Styling */
+.dashboard-wrapper {
+  padding: 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.category-section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-section h2 {
+  margin-bottom: 10px;
+  color: #2e7d32;
+}
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 8px;
+}
+/* navigation inside global header */
+.nav-links {
+  margin-left: auto;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1f2937;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.nav-links a:hover {
+  color: #2e7d32; /* dark green */
+}
+/* General button style */
+button {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+/* Green button (default style) */
+button,
+.search-btn,
+.browse-btn {
+  background-color: #2e7d32; /* dark green */
+  color: white;
+}
+
+/* Hover + active effect */
+button:hover,
+.search-btn:hover,
+.browse-btn:hover {
+  background-color: #256428; /* darker green */
+}
+
+button:active,
+.search-btn:active,
+.browse-btn:active {
+  transform: scale(0.97);
+}
+
+/* Active browse button (highlighted) */
+.browse-btn.active {
+  background-color: #1b5e20; /* even darker green for selected */
+}
+/* Improved role button spacing and hover effect */
+.role-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px; /* increased spacing */
+  margin: 20px 0;
+}
+
+.role-btn {
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.25s ease;
+}
+
+.role-btn:hover {
+  background-color: #cfcfcf;
+}
+
+.role-btn.active {
+  background-color: #2e7d32;
+  color: #fff;
+  box-shadow: 0 0 6px rgba(46, 125, 50, 0.4);
+  transform: scale(1.05);
+}
+
+/* Dashboard Upload button */
+.upload-btn {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  margin-top: 30px;
+}
+
+.upload-btn:hover {
+  background-color: #1b5e20;
+  transform: translateY(-2px);
+}
+
+/* Upload section wrapper */
+.UploadButton {
+  text-align: center;
+  margin-top: 40px;
+}
+
