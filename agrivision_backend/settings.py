@@ -2,18 +2,18 @@ import os
 from pathlib import Path
 import dj_database_url
 
-
 # -----------------------
 # BASE CONFIGURATION
 # -----------------------
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(_file).resolve().parent.parent   # ✅ FIXED (_file → _file_)
 
-# Load sensitive config from environment variables
 SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-test-key")
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "agrivision-backend-fi4w.onrender.com").split(",")
 
-
+# -----------------------
+# INSTALLED APPS
+# -----------------------
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -29,7 +29,7 @@ INSTALLED_APPS = [
 
     # Local apps
     "users",
-    "images.apps.ImagesConfig",  # Use AppConfig
+    "images.apps.ImagesConfig",
 ]
 
 # -----------------------
@@ -38,8 +38,11 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "corsheaders.middleware.CorsMiddleware",  # Must come before CommonMiddleware
+
+    # ✅ CORS must come BEFORE CommonMiddleware
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -54,7 +57,7 @@ ROOT_URLCONF = "agrivision_backend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [],   # Add templates folder here if needed
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -70,10 +73,14 @@ TEMPLATES = [
 WSGI_APPLICATION = "agrivision_backend.wsgi.application"
 
 # -----------------------
-# DATABASE (PostgreSQL)
+# DATABASE (PostgreSQL via dj_database_url)
 # -----------------------
 DATABASES = {
-    "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+    "default": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 # -----------------------
@@ -87,27 +94,32 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # -----------------------
-# INTERNATIONALIZATION
+# LOCALIZATION
 # -----------------------
 LANGUAGE_CODE = "en-us"
-TIME_ZONE = "Asia/Kolkata"  # Local timezone
+TIME_ZONE = "Asia/Kolkata"
 USE_I18N = True
 USE_TZ = True
 
 # -----------------------
-# STATIC FILES
+# STATIC & MEDIA
 # -----------------------
 STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"     # ✅ Required for Render
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # -----------------------
-# AUTH & DRF CONFIG
+# CUSTOM USER MODEL
 # -----------------------
 AUTH_USER_MODEL = "users.User"
 
+# -----------------------
+# DRF AUTH CONFIG
+# -----------------------
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
@@ -118,10 +130,19 @@ REST_FRAMEWORK = {
 }
 
 # -----------------------
-# CORS (for React Frontend)
+# ✅ CORS CONFIG (IMPORTANT)
 # -----------------------
-CORS_ALLOW_ALL_ORIGINS = os.environ.get("CORS_ALLOW_ALL_ORIGINS", "True").lower() == "true"
+# ONLY ALLOW YOUR FRONTEND
+CORS_ALLOWED_ORIGINS = [
+    "https://capstoneagrivision.vercel.app",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://capstoneagrivision.vercel.app",
+]
+
 CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOW_HEADERS = [
     "content-type",
     "authorization",
@@ -130,17 +151,13 @@ CORS_ALLOW_HEADERS = [
 ]
 
 # -----------------------
-# EMAIL BACKEND (for OTPs)
+# ✅ EMAIL CONFIG (works with Gmail)
 # -----------------------
-"""# Option 1: For Local Testing (prints OTP in console)
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-"""
-# Option 2: For Real Emails via Gmail (Uncomment and set env vars accordingly)
-
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
